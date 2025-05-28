@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nosso 1 Mês - Anyzinha e Eu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #ffd1dc, #e0bbff);
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Pacifico', cursive;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #ff5e78;
+    }
+    nav a {
+      padding: 1rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #ff1c46;
+    }
+    section {
+      padding: 2rem;
+    }
+    .music-box, .game-box, .letter-box {
+      background: white;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    iframe {
+      width: 100%;
+      height: 80px;
+      border: none;
+    }
+    .game-canvas {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    canvas {
+      border: 2px solid #000;
+      background-color: #fff0f5;
+    }
+    footer {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nosso 1 Mês 💖</h1>
+    <p>Anyzinha, sei que não nos conhecemos pessoalmente, mas o tempo que eu passo com você conta como se fôssemos a mesma pessoa. Eu te amo do jeito que você é e não ligo pra sua aparência, eu amo o que vem de dentro de você. Seja bem-vinda ao nosso site de 1 mês de namoro meu bem!!</p>
+  </header>
+
+  <nav>
+    <a href="#musicas">Músicas</a>
+    <a href="#jogo">Joguinho</a>
+    <a href="#carta">Cartinha</a>
+  </nav>
+
+  <section id="musicas">
+    <h2>🎶 Nossa Playlist</h2>
+    <!-- Música omitida por brevidade -->
+    <p>Playlist mantida igual ❤️</p>
+  </section>
+
+  <section id="jogo">
+    <h2>🎯 Nosso Cupido</h2>
+    <p>Um joguinho pra lembrar que...</p>
+    <div class="game-box">
+      <div class="game-canvas">
+        <canvas id="cupidoGame" width="300" height="200"></canvas>
+      </div>
+      <p id="msg" style="text-align:center; font-weight: bold; color: #d1005d;"></p>
+    </div>
+  </section>
+
+  <section id="carta">
+    <h2>💌 Cartinha pra Você</h2>
+    <div class="letter-box">
+      <p>Oi, Anyzinha... Hoje faz um mês que o meu coração achou um cantinho pra morar: dentro de você. Cada momento nosso, mesmo à distância, tem sido como uma música calma depois do caos. Você é meu abrigo, meu bug no sistema, e a melhor conquista desse jogo chamado vida. Eu não vejo a hora de te ver pela primeira vez, e até lá, vou continuar te amando como se estivéssemos lado a lado todos os dias. 💖</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Feito com amor por você 💘</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("cupidoGame");
+    const ctx = canvas.getContext("2d");
+    let heartX = Math.random() * 250 + 25;
+    let heartY = 50;
+    let arrowX = 150;
+    let arrowY = 180;
+    let fired = false;
+    let showMessage = false;
+
+    function drawHeart() {
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(heartX, heartY, 10, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawArrow() {
+      ctx.fillStyle = "black";
+      ctx.fillRect(arrowX - 2, arrowY, 4, 10);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawHeart();
+      drawArrow();
+      if (fired) {
+        arrowY -= 4;
+        if (arrowY <= heartY + 10 && arrowY >= heartY - 10 && arrowX >= heartX - 10 && arrowX <= heartX + 10) {
+          showMessage = true;
+          fired = false;
+        }
+        if (arrowY < 0) fired = false;
+      }
+      requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener("click", () => {
+      if (!fired && !showMessage) {
+        arrowY = 180;
+        fired = true;
+      }
+    });
+
+    draw();
+
+    setInterval(() => {
+      if (showMessage) {
+        document.getElementById("msg").innerText = "Demorou um pouco né, mas nosso cupido acertou ksksks 💘";
+      }
+    }, 100);
+  </script>
+</body>
+</html>
